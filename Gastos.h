@@ -2,36 +2,36 @@
 #define GASTOS_H
 #include <iostream>
 #include <string>
+#include <string.h>
 using namespace std;
 
 class Despesa
 {
 private:
     string nome;
-    int valor;
-    string TipoDeGasto;
-
+    float valor;
+    string tipoDeGasto;
 public:
     Despesa();
-    Despesa(string nome, int valor, string TiposDeGasto);
     void setNome(string nome);
-    void setValor(int valor);
-    void setTipoDeGasto(string TipoDeGasto);
+    void setValor(float valor);
+    void setTiposDeGasto(string tipoDeGasto);
     string getNome();
-    int getValor();
+    float getValor();
     string getTipoDeGasto();
 };
 
-class ControleDeGasto
+class ControleDeGastos
 {
 private:
-    Despesa despesas[100];
+    Despesa despesa[100];
 public:
-    void setDespesa(Despesa d, int pos);
+    ControleDeGastos();
+    void setDespesas(Despesa d, int pos);
     Despesa getDespesa(int pos);
-    float calculaValorTotaldeDespesa();
-    float calculaValorTotaldeDespesa(string tipo);
-    bool existeDespesasDoTipo(string tipo);
-
+    float calculaTotalDeDespesas();
+    float calculaTotalDeDespesas(string tipo, int n);
+    bool existeDespesaDoTipo(string tipo, int n);
 };
+
 #endif

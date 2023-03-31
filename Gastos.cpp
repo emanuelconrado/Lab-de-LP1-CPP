@@ -1,36 +1,45 @@
 #include "Gastos.h"
 
 int main(){
-    int n, i;
-    string nome, TipoDeGasto;
-    float valor;
-    ControleDeGasto c;
-    Despesa d;
 
-    cin >> n;
+int n = 0, i = 0, quantDeDespesa;
+string nome, tipo;
+float valor;
+ControleDeGastos *gasto = new ControleDeGastos();
+Despesa despesa;
+
+cin >> n;
+cin.ignore();
+
+for(i = 0; i < n; i++)
+{   
+    getline(cin, nome);
+    cin >> valor;
     cin.ignore();
+    getline(cin, tipo);
 
-    for(i = 0; i < n; i++){
-        getline(cin, nome);
-        cin >> valor;
-        cin.ignore();
-        getline(cin, TipoDeGasto);
+    despesa.setNome(nome);
+    despesa.setValor(valor);
+    despesa.setTiposDeGasto(tipo);
 
-        d.setNome(nome);
-        d.setValor(valor);
-        d.setTipoDeGasto(TipoDeGasto);
+    gasto->setDespesas(despesa, i);
+}
 
-        c.setDespesa(d, i);
+getline(cin, tipo);
+
+
+for(i = 0; i < n; i++)
+{   
+    if(gasto->existeDespesaDoTipo(tipo, i)){
+        despesa = gasto->getDespesa(i);
+        cout << despesa.getNome() << ", R$ " << despesa.getValor() << endl;
+        quantDeDespesa++;
     }
+}
 
-    getline(cin, TipoDeGasto);
+if(quantDeDespesa == 0) cout << "Nenhuma despesa do tipo especificado" << endl;
 
-    c.existeDespesasDoTipo(TipoDeGasto);
+cout << "Total: "<< gasto->calculaTotalDeDespesas(tipo, n) << "/" << gasto->calculaTotalDeDespesas() << endl;
 
-    cout << c.calculaValorTotaldeDespesa(TipoDeGasto) << "/" << c.calculaValorTotaldeDespesa() << endl;
-
-    system("pause");
-    
-
-    return 0;
+return 0;
 }

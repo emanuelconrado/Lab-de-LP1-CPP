@@ -1,75 +1,79 @@
 #include "Gastos.h"
 
-//Despesa
-
 Despesa::Despesa(){
     valor = 0;
 }
-Despesa::Despesa(string nome, int valor, string TiposDeGasto){
-    setNome(nome);
-    setValor(valor);
-    setTipoDeGasto(TipoDeGasto);
-}
-void Despesa::setNome(string nome){
+
+void Despesa::setNome(string nome)
+{
     this->nome = nome;
 }
-void Despesa::setValor(int valor){
+void Despesa::setValor(float valor)
+{
     this->valor = valor;
 }
-void Despesa::setTipoDeGasto(string TipoDeGasto){
-    this->TipoDeGasto = TipoDeGasto;
+void Despesa::setTiposDeGasto(string tipoDeGasto)
+{
+    this->tipoDeGasto = tipoDeGasto;
 }
-string Despesa::getNome(){
+string Despesa::getNome()
+{
     return nome;
 }
-int Despesa::getValor(){
+float Despesa::getValor()
+{
     return valor;
 }
-string Despesa::getTipoDeGasto(){
-    return TipoDeGasto;
+string Despesa::getTipoDeGasto()
+{
+    return tipoDeGasto;
 }
 
-//ControleDeGasto
+// Controle de Gastos
 
-void ControleDeGasto::setDespesa(Despesa d, int pos){
-    despesas[pos] = d;
+ControleDeGastos::ControleDeGastos()
+{
+
 }
-Despesa ControleDeGasto::getDespesa(int pos){
-    return despesas[pos];
+void ControleDeGastos::setDespesas(Despesa d, int pos)
+{
+    despesa[pos] = d;
 }
-float ControleDeGasto::calculaValorTotaldeDespesa(){
-    int i;
-    float totalDespesa;
-    for (i = 0; i < 100; i++){
-        totalDespesa += despesas[i].getValor();
+Despesa ControleDeGastos::getDespesa(int pos)
+{
+    return despesa[pos];
+}
+float ControleDeGastos::calculaTotalDeDespesas()
+{   
+    int i = 0;
+    float total = 0;
+    for(i = 0; i < 100; i++)
+    {
+        total += despesa[i].getValor();
     }
-    return totalDespesa;
-}
-float ControleDeGasto::calculaValorTotaldeDespesa(string tipo){
-    int i;
-    float totalDoTipo;
-    for(i = 0; i < 100; i++){
-        size_t search = despesas[i].getNome().find(tipo);
 
-        if(search != std::string::npos){
-            totalDoTipo += despesas[i].getValor(); 
+    return total;
+}
+float ControleDeGastos::calculaTotalDeDespesas(string tipo, int n)
+{   
+    int i = 0;
+    float total = 0;
+    for(i = 0; i < n; i++)
+    {   
+        if(existeDespesaDoTipo(tipo, i))
+        {
+            total += despesa[i].getValor();
         }
     }
-
-    return totalDoTipo;
+    
+    return total;
 }
-bool ControleDeGasto::existeDespesasDoTipo(string tipo){
-    int i;
-    for(i = 0; i < 100; i++){
-        size_t search = despesas[i].getNome().find(tipo);
-        if(search != std::string::npos){
+bool ControleDeGastos::existeDespesaDoTipo(string tipo, int n)
+{   
+        if(despesa[n].getTipoDeGasto() == tipo)
+        {
             return true;
-            break;
-            cout << despesas[i].getNome() << ", " << despesas[i].getValor();
-        }else{
-            return false;
-            break;
-            cout << "Nenhuma despesa do tipo especificado";
         }
-    }
+        return false;
+        
 }

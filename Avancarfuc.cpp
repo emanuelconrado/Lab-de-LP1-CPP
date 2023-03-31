@@ -18,7 +18,7 @@ Avancar::Avancar(int dia, int mes, int ano){
 
     if(mes > 12 || mes < 1){
         setMes(1);
-        cout << "Atributo mes Inválido" << endl;
+        cout << "Atributo mês Inválido" << endl;
 
     }else{
         setMes(mes);
